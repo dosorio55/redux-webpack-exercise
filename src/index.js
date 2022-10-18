@@ -1,21 +1,21 @@
-import { bugAdded, bugRemoved, bugResolved } from "./actions";
-import store from "./store";
+import { bugAdded, bugResolved } from "./store/bugs";
+import store from "./store/configureSteore";
 
-/**
- * suscribe to de store to refresh de UI, it returns a function
- * to unsuscribe of the store, for when de user moves away from the page, for example
- */
-// const unsuscribe = store.subscribe(() => {
-//     console.log('Store changed', store.getState())
-// });
+/* suscribe to de store to refresh de UI, it returns a function
+to unsuscribe of the store, for when de user moves away from the page, for example */
 
-store.dispatch(bugAdded('bug 1'));
+const unsuscribe = store.subscribe(() => {
+    console.log('Store changed', store.getState())
+});
 
-store.dispatch(bugAdded('bug 2'));
+store.dispatch(bugAdded({ description: 'bug 1' }));
 
-// unsuscribe();
+store.dispatch(bugAdded({ description: 'bug 2' }));
 
-store.dispatch(bugResolved(2));
+unsuscribe();
 
+store.dispatch(bugResolved({ id: 1 }));
+
+/* GET STORE STATE */
 console.log(store.getState())
 // console.log(store.getState());
